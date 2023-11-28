@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 import { store } from "../data/store";
 import { services } from "@tomtom-international/web-sdk-services";
 import SearchBox from "@tomtom-international/web-sdk-plugin-searchbox";
@@ -43,4 +43,4 @@ export default {
   <div id="searchbox"></div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped></style> -->

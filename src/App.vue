@@ -1,7 +1,7 @@
 <script>
 import axios from "axios";
 import Home from "./components/Home.vue";
-import SearchPage from "./components/SearchPage.vue";
+// import SearchPage from "./components/SearchPage.vue";
 import { store } from "./data/store";
 
 export default {
@@ -17,14 +17,13 @@ export default {
   },
   components: {
     Home,
-    SearchPage,
   },
 };
 </script>
 
 <template>
   <Home />
-  <SearchPage></SearchPage>
+  <!-- <SearchPage></SearchPage> -->
 </template>
 
 <style lang="scss"></style>
