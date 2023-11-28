@@ -1,6 +1,6 @@
 <script>
 import axios from "axios";
-
+import { store } from "../../data/store";
 export default {
   data() {
     return {
@@ -8,6 +8,7 @@ export default {
       searchResults: [],
       lastSearchTime: 0,
       minSearchInterval: 1000,
+      store,
     };
   },
 
@@ -45,6 +46,16 @@ export default {
           console.error("Errore nella ricerca:", error);
         });
     },
+
+    dropdownResult(address) {
+      this.searchQuery = address;
+      console.log(address);
+    },
+
+    storeAddressObject(addressObject) {
+      this.store.searchedAddress = addressObject;
+      console.log(addressObject);
+    },
   },
 };
 </script>
@@ -73,7 +84,7 @@ export default {
             <a class="nav-link" href="#">Link</a>
           </li>
         </ul>
-        <input
+        <!-- <input
           v-model="searchQuery"
           class="form-control me-2"
           type="search"
@@ -81,12 +92,49 @@ export default {
           aria-label="Search"
           @keydown="handleInput"
         />
-        <button class="btn btn-outline-success">Search</button>
-        <ul>
+        <button class="btn btn-outline-success">Search</button> -->
+        <!-- <ul>
           <li v-for="result in searchResults" :key="result.id">
-            {{ result.address.freeformAddress }}
+            <span v-if="result.address.freeformAddress == searchQuery">{{
+              result.address.freeformAddress
+            }}</span>
           </li>
-        </ul>
+        </ul> -->
+        <div class="dropdown w-50">
+          <!-- <a
+            class="btn btn-secondary dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Dropdown link
+          </a> -->
+          <input
+            v-model="searchQuery"
+            class="form-control me-2 dropdown-toggle"
+            type="search"
+            data-bs-toggle="dropdown"
+            placeholder="Search"
+            aria-label="Search"
+            @keydown="handleInput"
+          />
+
+          <ul class="dropdown-menu">
+            <li v-for="result in searchResults" :key="result.id">
+              <a
+                class="dropdown-item"
+                href="#"
+                @click="
+                  dropdownResult(result.address.freeformAddress),
+                    storeAddressObject(result)
+                "
+                >{{ result.address.freeformAddress }}</a
+              >
+            </li>
+          </ul>
+        </div>
+        <button class="btn btn-outline-success">Search</button>
       </div>
     </div>
   </nav>
