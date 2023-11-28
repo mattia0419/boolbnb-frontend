@@ -1,7 +1,7 @@
 <script>
 import axios from "axios";
 import Home from "./components/Home.vue";
-// import SearchPage from "./components/SearchPage.vue";
+import Navbar from "./components/partials/Navbar.vue";
 import { store } from "./data/store";
 
 export default {
@@ -17,11 +17,13 @@ export default {
   },
   components: {
     Home,
+    Navbar,
   },
 };
 </script>
 
 <template>
+  <Navbar />
   <Home />
   <!-- <SearchPage></SearchPage> -->
 </template>
