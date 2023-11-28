@@ -7,18 +7,6 @@ export default {
       store,
     };
   },
-
-  //   methods: {
-  //     fetchProjects(uri = this.api.baseUrl + "apartment") {
-  //       axios.get(uri).then((responce) => {
-  //         this.apartments = responce.data.data;
-  //       });
-  //     },
-  //   },
-
-  //   created() {
-  //     this.fetchProjects();
-  //   },
 };
 </script>
 
