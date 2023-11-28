@@ -1,4 +1,53 @@
-<script></script>
+<script>
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      searchQuery: "",
+      searchResults: [],
+      lastSearchTime: 0,
+      minSearchInterval: 1000,
+    };
+  },
+
+  methods: {
+    handleInput() {
+      const currentTime = Date.now();
+
+      if (
+        this.searchQuery.length >= 3 &&
+        currentTime - this.lastSearchTime >= this.minSearchInterval
+      ) {
+        this.searchResults = [];
+        this.searchLocations();
+        this.lastSearchTime = currentTime;
+      }
+    },
+
+    searchLocations() {
+      const apiKey = "EoW1gArKxlBBEKl68AZm1uhfhcLougV4"; // Sostituisci con la tua chiave API
+      const apiUrl =
+        "https://api.tomtom.com/search/2/geocode/" + this.searchQuery + ".json";
+
+      // Esegui la chiamata Axios alle API di TomTom
+      axios
+        .get(apiUrl, {
+          params: {
+            key: apiKey,
+          },
+        })
+        .then((response) => {
+          // Aggiorna i risultati della ricerca nel componente
+          this.searchResults = response.data.results;
+        })
+        .catch((error) => {
+          console.error("Errore nella ricerca:", error);
+        });
+    },
+  },
+};
+</script>
 
 <template>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -24,15 +73,20 @@
             <a class="nav-link" href="#">Link</a>
           </li>
         </ul>
-        <form class="d-flex" role="search" id="search">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        <input
+          v-model="searchQuery"
+          class="form-control me-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+          @keydown="handleInput"
+        />
+        <button class="btn btn-outline-success">Search</button>
+        <ul>
+          <li v-for="result in searchResults" :key="result.id">
+            {{ result.address.freeformAddress }}
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
