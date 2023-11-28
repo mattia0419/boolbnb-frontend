@@ -49,12 +49,12 @@ export default {
 
     dropdownResult(address) {
       this.searchQuery = address;
-      console.log(address);
+      // console.log(address);
     },
 
     storeAddressObject(addressObject) {
       this.store.searchedAddress = addressObject;
-      console.log(addressObject);
+      // console.log(addressObject);
     },
   },
 };
@@ -134,7 +134,13 @@ export default {
             </li>
           </ul>
         </div>
-        <button class="btn btn-outline-success">Search</button>
+        <router-link
+          class="btn btn-primary"
+          :to="{
+            name: 'searchpage',
+          }"
+          >Search</router-link
+        >
       </div>
     </div>
   </nav>
