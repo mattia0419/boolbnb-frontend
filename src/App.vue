@@ -1,8 +1,8 @@
 <script>
 import axios from "axios";
-import Home from "./components/Home.vue";
 import Navbar from "./components/partials/Navbar.vue";
 import { store } from "./data/store";
+import { router } from "./router";
 
 export default {
   data() {
@@ -16,15 +16,15 @@ export default {
     });
   },
   components: {
-    Home,
     Navbar,
+    router,
   },
 };
 </script>
 
 <template>
   <Navbar />
-  <Home />
+  <router-view></router-view>
   <!-- <SearchPage></SearchPage> -->
 </template>
 

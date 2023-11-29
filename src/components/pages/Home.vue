@@ -1,5 +1,5 @@
 <script>
-import { store } from "../data/store";
+import { store } from "../../data/store";
 
 export default {
   data() {
@@ -7,18 +7,6 @@ export default {
       store,
     };
   },
-
-  //   methods: {
-  //     fetchProjects(uri = this.api.baseUrl + "apartment") {
-  //       axios.get(uri).then((responce) => {
-  //         this.apartments = responce.data.data;
-  //       });
-  //     },
-  //   },
-
-  //   created() {
-  //     this.fetchProjects();
-  //   },
 };
 </script>
 
