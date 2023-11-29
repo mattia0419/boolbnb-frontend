@@ -6,4 +6,5 @@ export const store = reactive({
   },
   apartments: [],
   searchedAddress: {},
+  apartmentsToShow: [],
 });
