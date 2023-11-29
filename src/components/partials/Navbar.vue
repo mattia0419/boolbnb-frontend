@@ -4,6 +4,7 @@ import { store } from "../../data/store";
 export default {
   data() {
     return {
+      isSearchDisabled: true,
       searchQuery: "",
       searchResults: [],
       lastSearchTime: 0,
@@ -54,6 +55,7 @@ export default {
 
     storeAddressObject(addressObject) {
       this.store.searchedAddress = addressObject;
+      this.isSearchDisabled = false;
       // console.log(addressObject);
     },
   },
@@ -78,38 +80,16 @@ export default {
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <router-link class="nav-link" :to="{ name: 'home' }"
+              >Home</router-link
+            >
+            <!-- <a class="nav-link active" aria-current="page" href="#">Home</a> -->
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
           </li>
         </ul>
-        <!-- <input
-          v-model="searchQuery"
-          class="form-control me-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-          @keydown="handleInput"
-        />
-        <button class="btn btn-outline-success">Search</button> -->
-        <!-- <ul>
-          <li v-for="result in searchResults" :key="result.id">
-            <span v-if="result.address.freeformAddress == searchQuery">{{
-              result.address.freeformAddress
-            }}</span>
-          </li>
-        </ul> -->
         <div class="dropdown w-50">
-          <!-- <a
-            class="btn btn-secondary dropdown-toggle"
-            href="#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Dropdown link
-          </a> -->
           <input
             v-model="searchQuery"
             class="form-control me-2 dropdown-toggle"
@@ -117,7 +97,7 @@ export default {
             data-bs-toggle="dropdown"
             placeholder="Search"
             aria-label="Search"
-            @keydown="handleInput"
+            @input="handleInput"
           />
 
           <ul class="dropdown-menu">
@@ -136,6 +116,7 @@ export default {
         </div>
         <router-link
           class="btn btn-primary"
+          :class="isSearchDisabled ? 'disabled' : ''"
           :to="{
             name: 'searchpage',
           }"
