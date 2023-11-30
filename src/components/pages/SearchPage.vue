@@ -29,7 +29,6 @@ export default {
           this.store.apartments[i].rooms >= this.store.roomsFilter
         ) {
           this.store.apartmentsToShow.push(this.store.apartments[i]);
-          console.log(this.store.apartmentsToShow);
         } else {
           console.log("Il punto non si trova all'interno del cerchio.");
         }
@@ -114,7 +113,8 @@ export default {
           v-model="this.store.radiusFilter"
         />
       </div>
-      <div class="col">
+
+      <div class="col mt-auto">
         <div class="btn btn-primary" @click="filterApartments">Filter</div>
       </div>
     </div>
