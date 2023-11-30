@@ -81,7 +81,11 @@ export default {
           this.searchResults = response.data.results;
         })
         .catch((error) => {
-          console.error("Errore nella ricerca:", error);
+          if (error.response.status === 429) {
+            setTimeout(() => {
+              this.searchLocations();
+            }, 500);
+          }
         });
     },
 
