@@ -74,6 +74,8 @@ export default {
         .get(fuzzySearchUrl, {
           params: {
             key: apiKey,
+            countrySet: "IT",
+            language: "it-IT",
           },
         })
         .then((response) => {
