@@ -22,11 +22,17 @@ export default {
           this.store.apartments[i].longitude,
           this.store.searchedAddress.position.lat,
           this.store.searchedAddress.position.lon,
-          20
+          this.store.radiusFilter
         );
 
-        if (puntoDaControllare) {
+        if (
+          puntoDaControllare &&
+          this.store.apartments[i].bathrooms >= this.store.bathroomsFilter &&
+          this.store.apartments[i].beds >= this.store.bedsFilter &&
+          this.store.apartments[i].rooms >= this.store.roomsFilter
+        ) {
           this.store.apartmentsToShow.push(this.store.apartments[i]);
+          console.log(this.store.apartmentsToShow);
         } else {
           console.log("Il punto non si trova all'interno del cerchio.");
         }
@@ -74,6 +80,8 @@ export default {
         .get(fuzzySearchUrl, {
           params: {
             key: apiKey,
+            countrySet: "IT",
+            language: "it-IT",
           },
         })
         .then((response) => {
