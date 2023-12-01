@@ -5,6 +5,7 @@ export default {
   data() {
     return {
       store,
+      visibleApts: [],
     };
   },
 };
@@ -16,7 +17,11 @@ export default {
       >Dashboard</a
     >
     <div class="row row-cols-4 my-3 g-3">
-      <div class="col" v-for="apartment in store.apartments">
+      <div
+        class="col"
+        v-for="apartment in store.apartments"
+        v-show="apartment.visible == 1"
+      >
         <div class="card">
           <div class="card-header">
             <h3>{{ apartment.title }}</h3>

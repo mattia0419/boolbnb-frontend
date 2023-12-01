@@ -1,11 +1,14 @@
 <script>
 import { store } from "../../data/store";
 import axios from "axios";
+import tt from "@tomtom-international/web-sdk-maps";
+
 export default {
   data() {
     return {
       store,
       apartment: {},
+      map: null,
     };
   },
   methods: {
@@ -16,6 +19,24 @@ export default {
         return "https://placehold.co/400";
       }
     },
+    initializeMap() {
+      if (this.$refs.mapRef) {
+        this.map = tt.map({
+          key: "EoW1gArKxlBBEKl68AZm1uhfhcLougV4",
+          container: this.$refs.mapRef,
+          center: [14.98227, 40.61214],
+          zoom: 10,
+        });
+
+        // this.map.on("load", () => {
+        //   const marker = new tt.Marker().setLngLat([14.98227, 40.61214]);
+        //   marker.addTo(this.map);
+        // });
+      }
+    },
+  },
+  mounted() {
+    this.initializeMap();
   },
   created() {
     axios
@@ -23,7 +44,6 @@ export default {
       .then((response) => {
         // console.log(response.data);
         this.apartment = response.data;
-        console.log(this.apartment.cover_img);
       });
   },
 };
@@ -69,7 +89,12 @@ export default {
         </p>
       </div>
     </div>
+    <div id="map" ref="mapRef" style="width: 100%; height: 400px"></div>
   </div>
 </template>
 
-<style></style>
+<style lang="scss" scoped>
+#map {
+  height: 500px;
+}
+</style>
