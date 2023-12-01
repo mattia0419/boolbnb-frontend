@@ -14,6 +14,10 @@ export default {
   methods: {
     filterApartments() {
       // Azzerare l'array prima di applicare il filtro
+      this.store.bathroomsFilter = 1;
+      this.store.bedsFilter = 1;
+      this.store.roomsFilter = 1;
+      this.store.radiusFilter = 20;
       this.store.apartmentsToShow.splice(0, this.store.apartmentsToShow.length);
 
       for (let i = 0; i < this.store.apartments.length; i++) {
