@@ -6,10 +6,22 @@ export default {
     return {
       store,
       services: [],
+      activeServices: [],
     };
   },
 
   methods: {
+    // servicesCicle(apartments) {
+    //   for (let i = 0; i < this.apartments.length; i++) {
+    //     for (let j = 0; j < this.activeServices.length; j++) {
+    //       if (this.apartments[i] === this.activeServices[j]) {
+    //         break;
+    //       } else {
+    //         return false;
+    //       }
+    //     }
+    //   }
+    // },
     filterApartments() {
       // Azzerare l'array prima di applicare il filtro
       this.store.apartmentsToShow.splice(0, this.store.apartmentsToShow.length);
@@ -24,17 +36,27 @@ export default {
           this.store.radiusFilter
         );
 
+        // creo una costante vuota
+        const hasServices = [];
+        // la riempio con le label dei servizi
+        for (let j = 0; j < this.store.apartments[i].services.length; j++) {
+          hasServices.push(this.store.apartments[i].services[j].label);
+        }
+
         if (
           puntoDaControllare &&
           this.store.apartments[i].bathrooms >= this.store.bathroomsFilter &&
           this.store.apartments[i].beds >= this.store.bedsFilter &&
-          this.store.apartments[i].rooms >= this.store.roomsFilter
+          this.store.apartments[i].rooms >= this.store.roomsFilter &&
+          // verifico che i servizi attivati siano compresi in quelli degli appartamenti
+          this.activeServices.every((label) => hasServices.includes(label))
         ) {
           this.store.apartmentsToShow.push(this.store.apartments[i]);
         } else {
           // console.log("Il punto non si trova all'interno del cerchio.");
         }
       }
+      console.log(this.activeServices);
     },
     puntoInCerchio(latPunto, lonPunto, latCentro, lonCentro, raggio) {
       const raggioTerra = 6371; // Raggio medio della Terra in chilometri
@@ -121,10 +143,16 @@ export default {
           v-model="this.store.radiusFilter"
         />
       </div>
-      <div class="col-12">
+      <div class="col-12 d-flex">
         <div class="col-2" v-for="(service, index) in this.services">
           <label :for="index">{{ service.label }}</label>
-          <input type="checkbox" class="form-check-control" :id="index" />
+          <input
+            type="checkbox"
+            class="form-check-control"
+            :id="index"
+            v-model="activeServices"
+            :value="service.label"
+          />
         </div>
       </div>
 
