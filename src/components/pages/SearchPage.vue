@@ -55,9 +55,12 @@ export default {
         } else {
           // console.log("Il punto non si trova all'interno del cerchio.");
         }
+
+        this.sortedApartments();
       }
       console.log(this.activeServices);
     },
+
     puntoInCerchio(latPunto, lonPunto, latCentro, lonCentro, raggio) {
       const raggioTerra = 6371; // Raggio medio della Terra in chilometri
 
@@ -81,7 +84,46 @@ export default {
 
       return distanza <= raggio;
     },
+
+    sortedApartments() {
+      // Ordina gli appartamenti per distanza
+      this.store.apartmentsToShow = this.store.apartmentsToShow.sort((a, b) => {
+        const distanceA = this.calculateDistance(a);
+        const distanceB = this.calculateDistance(b);
+        return distanceA - distanceB;
+      });
+    },
+
+    calculateDistance(apartment) {
+      const R = 6371; // Raggio medio della Terra in chilometri
+      const dLat = this.degreesToRadians(
+        apartment.latitude - this.store.searchedAddress.position.lat
+      );
+      const dLon = this.degreesToRadians(
+        apartment.longitude - this.store.searchedAddress.position.lon
+      );
+
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(
+          this.degreesToRadians(this.store.searchedAddress.position.lat)
+        ) *
+          Math.cos(this.degreesToRadians(apartment.latitude)) *
+          Math.sin(dLon / 2) *
+          Math.sin(dLon / 2);
+
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+      const distance = R * c; // Distanza in chilometri
+
+      return distance.toFixed(2); // Arrotonda la distanza a due decimali
+    },
+
+    degreesToRadians(degrees) {
+      return degrees * (Math.PI / 180);
+    },
   },
+
   created() {
     axios.get("http://127.0.0.1:8000/api/services").then((response) => {
       this.services = response.data;
@@ -169,7 +211,8 @@ export default {
             {{ apartment.title }}
           </div>
           <div class="card-body">
-            {{ apartment.address }}
+            <div>{{ apartment.address }}</div>
+            <div>Distance: {{ calculateDistance(apartment) }} km</div>
           </div>
         </div>
       </div>
