@@ -9,6 +9,7 @@ export default {
       store,
       apartment: {},
       map: null,
+      notFound: false,
     };
   },
   methods: {
@@ -20,30 +21,32 @@ export default {
       }
     },
     initializeMap() {
-      if (this.$refs.mapRef) {
-        this.map = tt.map({
-          key: "EoW1gArKxlBBEKl68AZm1uhfhcLougV4",
-          container: this.$refs.mapRef,
-          center: [14.98227, 40.61214],
-          zoom: 10,
-        });
+      const map = tt.map({
+        key: "EoW1gArKxlBBEKl68AZm1uhfhcLougV4",
+        container: this.$refs.mapRef,
+        center: [14.98227, 40.61214],
+        zoom: 10,
+      });
 
-        // this.map.on("load", () => {
-        //   const marker = new tt.Marker().setLngLat([14.98227, 40.61214]);
-        //   marker.addTo(this.map);
-        // });
-      }
+      new tt.Marker().setLngLat([14.98227, 40.61214]).addTo(map);
+
+      this.map = Object.freeze(map);
     },
   },
-  mounted() {
-    this.initializeMap();
-  },
+
   created() {
     axios
       .get(store.api.baseUrl + "/" + this.$route.params.id)
       .then((response) => {
-        // console.log(response.data);
-        this.apartment = response.data;
+        if (response.data && response.data.visible) {
+          this.apartment = response.data;
+          this.initializeMap();
+        } else {
+          this.notFound = true;
+        }
+      })
+      .catch((err) => {
+        this.notFound = true;
       });
   },
 };
@@ -51,7 +54,7 @@ export default {
 
 <template>
   <div class="container">
-    <div class="row">
+    <div class="row" :class="this.notFound ? 'd-none' : ''">
       <div class="col-4">
         <img :src="this.apartment.cover_img" alt="" class="img-fluid" />
       </div>
@@ -89,7 +92,16 @@ export default {
         </p>
       </div>
     </div>
-    <div id="map" ref="mapRef" style="width: 100%; height: 400px"></div>
+    <div
+      id="map"
+      ref="mapRef"
+      style="width: 300px; height: 300px"
+      :class="this.notFound ? 'd-none' : ''"
+    ></div>
+
+    <div class="row">
+      <h2 v-if="this.notFound" class="my-5 text-center">404 - Not found</h2>
+    </div>
   </div>
 </template>
 
