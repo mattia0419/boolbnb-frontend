@@ -57,6 +57,47 @@ export default {
 
       return distanza <= raggio;
     },
+
+    getDistance(location) {
+      const R = 6371; // Raggio della Terra in km
+      const dLat = this.deg2rad(
+        location.lat - this.store.searchedAddress.position.lat
+      );
+      const dLon = this.deg2rad(
+        location.lon - this.store.searchedAddress.position.lon
+      );
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(this.deg2rad(this.store.searchedAddress.position.lat)) *
+          Math.cos(this.deg2rad(location.lat)) *
+          Math.sin(dLon / 2) *
+          Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      const distance = R * c; // Distanza in km
+      return distance;
+    },
+
+    deg2rad(deg) {
+      return deg * (Math.PI / 180);
+    },
+  },
+
+  computed: {
+    // Calcola e restituisci l'array ordinato in base alla distanza dal punto fisso
+    sortedLocations() {
+      return this.store.apartmentsToShow.slice().sort((a, b) => {
+        const distanceA = this.getDistance(a);
+        const distanceB = this.getDistance(b);
+        return distanceA - distanceB;
+      });
+    },
+  },
+
+  created() {
+    // Ascolta l'evento emesso dal componente Header.vue e ordina gli oggetti
+    this.root.on("order-by-distance", () => {
+      this.store.apartmentsToShow = this.sortedLocations;
+    });
   },
 };
 </script>

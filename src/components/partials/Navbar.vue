@@ -112,6 +112,10 @@ export default {
       this.isSearchDisabled = false;
       console.log(this.store.searchedAddress);
     },
+
+    orderByDistance() {
+      this.$emit("order-by-distance");
+    },
   },
 };
 </script>
@@ -176,7 +180,7 @@ export default {
           :to="{
             name: 'searchpage',
           }"
-          ><span @click="filterApartments" role="link"
+          ><span @click="filterApartments, orderByDistance" role="link"
             >Search</span
           ></router-link
         >
