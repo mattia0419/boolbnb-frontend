@@ -11,14 +11,14 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faUtensils } from "@fortawesome/free-solid-svg-icons";
 import { faWifi } from "@fortawesome/free-solid-svg-icons";
 import { faCar } from "@fortawesome/free-solid-svg-icons";
-// import { faLadder } from "@fortawesome/free-solid-svg-icons";
+import { faWaterLadder } from "@fortawesome/free-solid-svg-icons";
 import { faBath } from "@fortawesome/free-solid-svg-icons";
 import { faWater } from "@fortawesome/free-solid-svg-icons";
 // / add icons to the library /
 library.add(faUtensils);
 library.add(faWifi);
 library.add(faCar);
-// library.add(faLadder);
+library.add(faWaterLadder);
 library.add(faBath);
 library.add(faWater);
 
