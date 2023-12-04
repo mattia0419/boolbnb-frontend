@@ -13,6 +13,7 @@ export default {
   created() {
     axios.get(store.api.baseUrl).then((response) => {
       store.apartments = response.data.data;
+      console.log(response.data.data);
     });
   },
   components: {

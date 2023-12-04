@@ -5,6 +5,7 @@ export default {
   data() {
     return {
       store,
+      services: [],
     };
   },
 
@@ -14,6 +15,7 @@ export default {
       this.store.apartmentsToShow.splice(0, this.store.apartmentsToShow.length);
 
       for (let i = 0; i < this.store.apartments.length; i++) {
+        console.log(this.store.apartments[i].services);
         const puntoDaControllare = this.puntoInCerchio(
           this.store.apartments[i].latitude,
           this.store.apartments[i].longitude,
@@ -30,7 +32,7 @@ export default {
         ) {
           this.store.apartmentsToShow.push(this.store.apartments[i]);
         } else {
-          console.log("Il punto non si trova all'interno del cerchio.");
+          // console.log("Il punto non si trova all'interno del cerchio.");
         }
       }
     },
@@ -57,6 +59,12 @@ export default {
 
       return distanza <= raggio;
     },
+  },
+  created() {
+    axios.get("http://127.0.0.1:8000/api/services").then((response) => {
+      this.services = response.data;
+      console.log(response.data);
+    });
   },
 };
 </script>
@@ -112,6 +120,12 @@ export default {
           class="form-control"
           v-model="this.store.radiusFilter"
         />
+      </div>
+      <div class="col-12">
+        <div class="col-2" v-for="(service, index) in this.services">
+          <label :for="index">{{ service.label }}</label>
+          <input type="checkbox" class="form-check-control" :id="index" />
+        </div>
       </div>
 
       <div class="col mt-auto">

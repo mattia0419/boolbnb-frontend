@@ -36,9 +36,9 @@ export default {
           this.store.apartments[i].rooms >= this.store.roomsFilter
         ) {
           this.store.apartmentsToShow.push(this.store.apartments[i]);
-          console.log(this.store.apartmentsToShow);
+          // console.log(this.store.apartmentsToShow);
         } else {
-          console.log("Il punto non si trova all'interno del cerchio.");
+          // console.log("Il punto non si trova all'interno del cerchio.");
         }
       }
     },
