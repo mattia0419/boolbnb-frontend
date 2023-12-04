@@ -24,11 +24,13 @@ export default {
       const map = tt.map({
         key: "EoW1gArKxlBBEKl68AZm1uhfhcLougV4",
         container: this.$refs.mapRef,
-        center: [14.98227, 40.61214],
+        center: [this.apartment.longitude, this.apartment.latitude],
         zoom: 10,
       });
 
-      new tt.Marker().setLngLat([14.98227, 40.61214]).addTo(map);
+      new tt.Marker()
+        .setLngLat([this.apartment.longitude, this.apartment.latitude])
+        .addTo(map);
 
       this.map = Object.freeze(map);
     },
