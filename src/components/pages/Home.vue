@@ -25,6 +25,9 @@ export default {
           <div class="card-body">
             <p>{{ apartment.id }}</p>
           </div>
+          <div class="card-body">
+            <p>{{ apartment.address }}</p>
+          </div>
         </div>
       </div>
     </div>
