@@ -18,14 +18,19 @@ export default {
     >
     <div class="row row-cols-4 my-3 g-3">
       <div class="col" v-for="apartment in store.apartments">
-        <div class="card">
-          <div class="card-header">
-            <h3>{{ apartment.title }}</h3>
+        <router-link
+          class="nav-link"
+          :to="{ name: 'showdetails', params: { id: `${apartment.id}` } }"
+        >
+          <div class="card">
+            <div class="card-header">
+              <h3>{{ apartment.title }}</h3>
+            </div>
+            <div class="card-body">
+              <p>{{ apartment.id }}</p>
+            </div>
           </div>
-          <div class="card-body">
-            <p>{{ apartment.id }}</p>
-          </div>
-        </div>
+        </router-link>
       </div>
     </div>
   </div>
