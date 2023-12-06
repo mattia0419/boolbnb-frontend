@@ -10,6 +10,7 @@ export default {
       apartment: {},
       map: null,
       notFound: false,
+      messageSent: false,
 
       email: "",
       message: "",
@@ -50,11 +51,15 @@ export default {
         .post("http://localhost:8000/api/save-form-data", formData)
         .then((response) => {
           console.log(response.data);
-          // Puoi gestire la risposta come preferisci
+          this.messageSent = true;
         })
         .catch((error) => {
+          this.messageSent = false;
           console.error("Errore nella richiesta:", error);
         });
+
+      this.email = "";
+      this.message = "";
     },
   },
 
@@ -152,6 +157,19 @@ export default {
                 <button type="submit" class="btn btn-primary mb-3">
                   Confirm identity
                 </button>
+              </div>
+              <div
+                class="alert alert-success alert-dismissible fade show"
+                :class="this.messageSent ? '' : 'd-none'"
+                role="alert"
+              >
+                Message sent!
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Close"
+                ></button>
               </div>
             </form>
           </div>
