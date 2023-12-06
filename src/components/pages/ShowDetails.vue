@@ -10,6 +10,9 @@ export default {
       apartment: {},
       map: null,
       notFound: false,
+
+      email: "",
+      message: "",
     };
   },
   methods: {
@@ -33,6 +36,25 @@ export default {
         .addTo(map);
 
       this.map = Object.freeze(map);
+    },
+
+    submitForm() {
+      const formData = {
+        email: this.email,
+        message: this.message,
+        apartment_id: this.apartment.id,
+      };
+
+      // Invia la richiesta POST a Laravel
+      axios
+        .post("http://localhost:8000/api/save-form-data", formData)
+        .then((response) => {
+          console.log(response.data);
+          // Puoi gestire la risposta come preferisci
+        })
+        .catch((error) => {
+          console.error("Errore nella richiesta:", error);
+        });
     },
   },
 
@@ -93,7 +115,52 @@ export default {
           <font-awesome-icon :icon="service.icon" />
         </p>
       </div>
+
+      <!-- FORM MESSAGE  -->
+
+      <div class="col-8 mx-auto m-5">
+        <div class="card">
+          <div class="card-header">Form Message</div>
+          <div class="card-body">
+            <form @submit.prevent="submitForm">
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label"
+                  >Email address</label
+                >
+                <input
+                  v-model="email"
+                  required
+                  type="email"
+                  class="form-control"
+                  id="exampleFormControlInput1"
+                  placeholder="name@example.com"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label"
+                  >Example textarea</label
+                >
+                <textarea
+                  v-model="message"
+                  required
+                  class="form-control"
+                  id="exampleFormControlTextarea1"
+                  rows="3"
+                ></textarea>
+              </div>
+              <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3">
+                  Confirm identity
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="card-footer"></div>
+        </div>
+      </div>
     </div>
+
+    <!-- MAP -->
     <div
       id="map"
       ref="mapRef"
