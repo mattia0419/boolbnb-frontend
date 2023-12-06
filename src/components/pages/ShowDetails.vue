@@ -42,6 +42,7 @@ export default {
       const formData = {
         email: this.email,
         message: this.message,
+        apartment_id: this.apartment.id,
       };
 
       // Invia la richiesta POST a Laravel
