@@ -206,13 +206,24 @@ export default {
     <!-- apartments -->
     <div class="row row-cols-3 my-5 g-3">
       <div v-for="apartment in this.store.apartmentsToShow" class="col">
-        <div class="card">
+        <div class="card h-100">
           <div class="card-header">
             {{ apartment.title }}
           </div>
           <div class="card-body">
+            <div class="card-h">
+              <img
+                :src="'http://127.0.0.1:8000/storage/' + apartment.cover_img"
+                alt=""
+              />
+            </div>
             <div>{{ apartment.address }}</div>
             <div>Distance: {{ calculateDistance(apartment) }} km</div>
+            <div class="d-flex justify-content-evenly">
+              <div v-for="service in apartment.services">
+                <font-awesome-icon :icon="service.icon" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -220,4 +231,14 @@ export default {
   </div>
 </template>
 
-<style></style>
+<style lang="scss" scoped>
+.card-h {
+  height: 300px;
+  width: 100%;
+  img {
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+  }
+}
+</style>
