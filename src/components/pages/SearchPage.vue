@@ -130,6 +130,13 @@ export default {
 
     sortedApartments() {
       // Ordina gli appartamenti per distanza
+      this.store.featuredApartmentsToShow =
+        this.store.featuredApartmentsToShow.sort((a, b) => {
+          const distanceA = this.calculateDistance(a);
+          const distanceB = this.calculateDistance(b);
+          return distanceA - distanceB;
+        });
+
       this.store.apartmentsToShow = this.store.apartmentsToShow.sort((a, b) => {
         const distanceA = this.calculateDistance(a);
         const distanceB = this.calculateDistance(b);
