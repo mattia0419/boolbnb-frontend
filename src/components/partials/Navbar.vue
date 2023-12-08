@@ -19,6 +19,35 @@ export default {
       this.store.roomsFilter = 1;
       this.store.radiusFilter = 20;
       this.store.apartmentsToShow.splice(0, this.store.apartmentsToShow.length);
+      this.store.featuredApartmentsToShow.splice(
+        0,
+        this.store.featuredApartmentsToShow.length
+      );
+
+      for (let i = 0; i < this.store.featuredApartments.length; i++) {
+        const puntoDaControllare = this.puntoInCerchio(
+          this.store.featuredApartments[i].latitude,
+          this.store.featuredApartments[i].longitude,
+          this.store.searchedAddress.position.lat,
+          this.store.searchedAddress.position.lon,
+          this.store.radiusFilter
+        );
+
+        if (
+          puntoDaControllare &&
+          this.store.featuredApartments[i].bathrooms >=
+            this.store.bathroomsFilter &&
+          this.store.featuredApartments[i].beds >= this.store.bedsFilter &&
+          this.store.featuredApartments[i].rooms >= this.store.roomsFilter
+        ) {
+          this.store.featuredApartmentsToShow.push(
+            this.store.featuredApartments[i]
+          );
+          // console.log(this.store.apartmentsToShow);
+        } else {
+          // console.log("Il punto non si trova all'interno del cerchio.");
+        }
+      }
 
       for (let i = 0; i < this.store.apartments.length; i++) {
         const puntoDaControllare = this.puntoInCerchio(
