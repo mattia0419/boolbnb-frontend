@@ -14,10 +14,11 @@ export default {
   },
 
   methods: {
-    addDays() {
-      var data = new Date(this.createdAt);
+    getExpirationDate() {
+      let data = new Date(this.createdAt);
       data.setDate(data.getDate() + this.days);
-      console.log(data);
+
+      return data;
     },
   },
 
@@ -25,19 +26,22 @@ export default {
     axios.get(store.api.baseUrl).then((response) => {
       for (let i = 0; i < response.data.data.length; i++) {
         if (response.data.data[i].sponsorships.length > 0) {
-          // this.createdAt =
-          //   response.data.data[i].sponsorships[0].pivot.created_at;
-          // this.days = response.data.data[i].sponsorships[0].duration;
-          // this.addDays();
-          store.featuredApartments.push(response.data.data[i]);
+          this.createdAt =
+            response.data.data[i].sponsorships[0].pivot.created_at;
+          this.days = response.data.data[i].sponsorships[0].duration;
+
+          let expirationDate = this.getExpirationDate();
+          let today = new Date();
+
+          if (today <= expirationDate) {
+            store.featuredApartments.push(response.data.data[i]);
+          } else {
+            store.apartments.push(response.data.data[i]);
+          }
         } else {
           store.apartments.push(response.data.data[i]);
         }
       }
-
-      // store.apartments = response.data.data;
-      // console.log(response.data.data);
-      // console.log(store.apartments[0].sponsorships[0].pivot);
     });
   },
 
