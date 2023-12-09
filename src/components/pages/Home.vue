@@ -13,11 +13,11 @@ export default {
 
 <template>
   <div class="container">
-    <a href="http://127.0.0.1:8000/admin" class="btn btn-primary my-3"
+    <!-- <a href="http://127.0.0.1:8000/admin" class="btn btn-primary my-3"
       >Dashboard</a
-    >
-    <h3>Featured Apartments</h3>
-    <div class="row row-cols-4 my-3 g-3">
+    > -->
+    <h3 class="my-4">Featured Apartments</h3>
+    <div class="row row-cols-lg-3 row-cols-1 row-cols-md-2 my-3 g-3">
       <div v-for="apartment in store.featuredApartments" class="col">
         <router-link
           class="nav-link"
@@ -25,9 +25,7 @@ export default {
         >
           <div class="card-searchpage">
             <div class="apartment-img">
-              <span
-                class="position-absolute translate-middle badge rounded-pill"
-              >
+              <span class="position-absolute px-2 py-1 badge rounded-pill">
                 Sponsorized
                 <span class="visually-hidden">unread messages</span>
               </span>
@@ -39,7 +37,7 @@ export default {
             <div class="card-info ps-2">
               <h4>{{ apartment.title }}</h4>
               <h6>{{ apartment.address }}</h6>
-              <div class="d-flex justify-content-between px-2">
+              <div class="d-flex justify-content-between px-2 pb-1">
                 <div v-for="service in apartment.services">
                   <font-awesome-icon :icon="service.icon" />
                 </div>
@@ -49,7 +47,7 @@ export default {
         </router-link>
       </div>
     </div>
-    <div class="row row-cols-4 my-3 g-3">
+    <div class="row row-cols-lg-3 row-cols-1 row-cols-md-2 my-3 g-3">
       <div v-for="apartment in store.apartments" class="col">
         <router-link
           class="nav-link"
@@ -65,7 +63,7 @@ export default {
             <div class="card-info ps-2">
               <h4>{{ apartment.title }}</h4>
               <h6>{{ apartment.address }}</h6>
-              <div class="d-flex justify-content-between px-2">
+              <div class="d-flex justify-content-between px-2 pb-1">
                 <div v-for="service in apartment.services">
                   <font-awesome-icon :icon="service.icon" />
                 </div>
@@ -125,9 +123,9 @@ export default {
     height: 300px;
     width: 100%;
     span {
-      top: 37px;
-      right: 0px;
-      background-color: green;
+      top: 20px;
+      right: 15px;
+      background-color: rgba(7, 156, 7, 0.818);
     }
     img {
       height: 100%;

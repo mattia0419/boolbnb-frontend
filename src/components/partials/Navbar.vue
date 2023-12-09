@@ -210,10 +210,21 @@ export default {
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'home' }"
+            <router-link
+              class="nav-link active"
+              aria-current="page"
+              :to="{ name: 'home' }"
               >Home</router-link
             >
-            <!-- <a class="nav-link active" aria-current="page" href="#">Home</a> -->
+            <!-- <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/admin">Home</a> -->
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              aria-current="page"
+              href="http://127.0.0.1:8000/admin"
+              >Dashboard</a
+            >
           </li>
         </ul>
         <div class="dropdown w-50">
@@ -259,8 +270,13 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-li:hover {
-  font-size: 15px;
-  color: black;
+.dropdown-menu {
+  overflow: hidden;
+  & .dropdown-item:hover {
+    transform: scale(1.01);
+  }
+}
+li.nav-item:hover {
+  transform: scale(1.1);
 }
 </style>

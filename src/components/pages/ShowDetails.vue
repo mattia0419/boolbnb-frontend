@@ -84,10 +84,15 @@ export default {
 <template>
   <div class="container">
     <div class="row mt-4" :class="this.notFound ? 'd-none' : ''">
+      <div class="d-flex flex-row-reverse">
+        <router-link :to="{ name: 'home' }" class="btn btn-primary"
+          >GO BACK</router-link
+        >
+      </div>
       <div class="col-4">
         <img :src="this.apartment.cover_img" alt="" class="img-fluid" />
       </div>
-      <div class="col-4">
+      <div class="col-8">
         <h3>{{ this.apartment.title }}</h3>
         <p>
           <strong>Rooms : </strong>
@@ -114,21 +119,31 @@ export default {
           {{ this.apartment.price + "€" }}
         </p>
       </div>
-      <div
+
+      <!-- MAPPA -->
+      <!-- <div
         id="map"
         ref="mapRef"
         style="width: 400px; height: 300px"
         :class="this.notFound ? 'd-none' : ''"
         class="col-4"
-      ></div>
-      <div class="col-2 services-container">
-        <div v-for="service in this.apartment.services">
-          <span>
-            <p>
-              {{ service.label }}
-              <font-awesome-icon :icon="service.icon" />
-            </p>
-          </span>
+      ></div> -->
+
+      <!-- SERVIZO -->
+      <div class="col-4 mt-5">
+        <div class="row row-cols-2">
+          <div v-for="service in this.apartment.services">
+            <div class="col services-container my-1 ps-3">
+              <span class="icon-link">
+                <font-awesome-icon
+                  class="bi"
+                  aria-hidden="true"
+                  :icon="service.icon"
+                />
+                {{ service.label }}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -213,19 +228,19 @@ img {
   border-radius: 12px;
 }
 .services-container {
-  margin-top: 40px;
-  div {
-    border: black solid 1px;
-    border-radius: 15px;
-    margin-bottom: 5px;
-    padding: 5px;
-    display: flex;
-    align-items: center;
-    span {
-      display: flex;
-      align-items: center;
-      height: 100%;
-    }
-  }
+  //   margin-top: 40px;
+  //   div {
+  border: black solid 1px;
+  border-radius: 15px;
+  //     margin-bottom: 5px;
+  padding: 5px;
+  //     display: flex;
+  //     align-items: center;
+  //     span {
+  //       display: flex;
+  //       align-items: center;
+  //       height: 100%;
+  //     }
+  //   }
 }
 </style>
