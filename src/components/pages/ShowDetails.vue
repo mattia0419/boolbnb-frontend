@@ -83,11 +83,11 @@ export default {
 
 <template>
   <div class="container">
-    <div class="row" :class="this.notFound ? 'd-none' : ''">
+    <div class="row mt-4" :class="this.notFound ? 'd-none' : ''">
       <div class="col-4">
         <img :src="this.apartment.cover_img" alt="" class="img-fluid" />
       </div>
-      <div class="col-8">
+      <div class="col-4">
         <h3>{{ this.apartment.title }}</h3>
         <p>
           <strong>Rooms : </strong>
@@ -114,80 +114,92 @@ export default {
           {{ this.apartment.price + "€" }}
         </p>
       </div>
-      <div class="col-12">
-        <p v-for="service in this.apartment.services">
-          {{ service.label }}
-          <font-awesome-icon :icon="service.icon" />
-        </p>
-      </div>
-
-      <!-- FORM MESSAGE  -->
-
-      <div class="col-8 mx-auto m-5">
-        <div class="card">
-          <div class="card-header">Form Message</div>
-          <div class="card-body">
-            <form @submit.prevent="submitForm">
-              <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label"
-                  >Email address</label
-                >
-                <input
-                  v-model="email"
-                  required
-                  type="email"
-                  class="form-control"
-                  id="exampleFormControlInput1"
-                  placeholder="name@example.com"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label"
-                  >Example textarea</label
-                >
-                <textarea
-                  v-model="message"
-                  required
-                  class="form-control"
-                  id="exampleFormControlTextarea1"
-                  rows="3"
-                ></textarea>
-              </div>
-              <div class="col-auto">
-                <button type="submit" class="btn btn-primary mb-3">
-                  Confirm identity
-                </button>
-              </div>
-              <div
-                class="alert alert-success alert-dismissible fade show"
-                :class="this.messageSent ? '' : 'd-none'"
-                role="alert"
-              >
-                Message sent!
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="alert"
-                  aria-label="Close"
-                ></button>
-              </div>
-            </form>
-          </div>
-          <div class="card-footer"></div>
+      <div
+        id="map"
+        ref="mapRef"
+        style="width: 400px; height: 300px"
+        :class="this.notFound ? 'd-none' : ''"
+        class="col-4"
+      ></div>
+      <div class="col-2 services-container">
+        <div v-for="service in this.apartment.services">
+          <span>
+            <p>
+              {{ service.label }}
+              <font-awesome-icon :icon="service.icon" />
+            </p>
+          </span>
         </div>
       </div>
-    </div>
 
-    <!-- MAP -->
-    <div
-      id="map"
-      ref="mapRef"
-      style="width: 300px; height: 300px"
-      :class="this.notFound ? 'd-none' : ''"
-    ></div>
+      <div class="row">
+        <h2 v-if="this.notFound" class="my-5 text-center">404 - Not found</h2>
+      </div>
+      <!-- FORM MESSAGE  -->
 
-    <div class="row">
-      <h2 v-if="this.notFound" class="my-5 text-center">404 - Not found</h2>
+      <div class="row mt-5">
+        <div class="col-8">
+          <div class="card">
+            <div class="card-header">Form Message</div>
+            <div class="card-body">
+              <form @submit.prevent="submitForm">
+                <div class="mb-3">
+                  <label for="exampleFormControlInput1" class="form-label"
+                    >Email address</label
+                  >
+                  <input
+                    v-model="email"
+                    required
+                    type="email"
+                    class="form-control"
+                    id="exampleFormControlInput1"
+                    placeholder="name@example.com"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="exampleFormControlTextarea1" class="form-label"
+                    >Example textarea</label
+                  >
+                  <textarea
+                    v-model="message"
+                    required
+                    class="form-control"
+                    id="exampleFormControlTextarea1"
+                    rows="3"
+                  ></textarea>
+                </div>
+                <div class="col-auto">
+                  <button type="submit" class="btn btn-primary mb-3">
+                    Confirm identity
+                  </button>
+                </div>
+                <div
+                  class="alert alert-success alert-dismissible fade show"
+                  :class="this.messageSent ? '' : 'd-none'"
+                  role="alert"
+                >
+                  Message sent!
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"
+                  ></button>
+                </div>
+              </form>
+            </div>
+            <div class="card-footer"></div>
+          </div>
+        </div>
+        <!-- MAP -->
+        <div
+          id="map"
+          ref="mapRef"
+          style="width: 400px; height: 100%"
+          :class="this.notFound ? 'd-none' : ''"
+          class="col-4"
+        ></div>
+      </div>
     </div>
   </div>
 </template>
@@ -195,5 +207,25 @@ export default {
 <style lang="scss" scoped>
 #map {
   height: 500px;
+  border-radius: 12px;
+}
+img {
+  border-radius: 12px;
+}
+.services-container {
+  margin-top: 40px;
+  div {
+    border: black solid 1px;
+    border-radius: 15px;
+    margin-bottom: 5px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    span {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+  }
 }
 </style>

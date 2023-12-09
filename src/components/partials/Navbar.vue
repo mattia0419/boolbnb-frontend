@@ -215,9 +215,6 @@ export default {
             >
             <!-- <a class="nav-link active" aria-current="page" href="#">Home</a> -->
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
         </ul>
         <div class="dropdown w-50">
           <input
@@ -261,4 +258,9 @@ export default {
   </nav>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+li:hover {
+  font-size: 15px;
+  color: black;
+}
+</style>

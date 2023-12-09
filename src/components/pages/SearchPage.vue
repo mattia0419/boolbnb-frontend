@@ -256,40 +256,63 @@ export default {
     <!-- apartments -->
     <div class="row row-cols-3 my-5 g-3">
       <div v-for="apartment in this.store.featuredApartmentsToShow" class="col">
-        <div class="card">
-          <div class="card-header text-success">
-            {{ apartment.title }}
-          </div>
-          <div class="card-body">
-            <div>{{ apartment.address }}</div>
-            <div>Distance: {{ calculateDistance(apartment) }} km</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row row-cols-3 my-5 g-3">
-      <div v-for="apartment in this.store.apartmentsToShow" class="col">
-        <div class="card h-100">
-          <div class="card-header">
-            {{ apartment.title }}
-          </div>
-          <div class="card-body">
-            <div class="card-h">
+        <router-link
+          class="nav-link"
+          :to="{ name: 'showdetails', params: { id: `${apartment.id}` } }"
+        >
+          <div class="card-searchpage">
+            <div class="apartment-img">
+              <span
+                class="position-absolute translate-middle badge rounded-pill"
+              >
+                Sponsorized
+                <span class="visually-hidden">unread messages</span>
+              </span>
               <img
                 :src="'http://127.0.0.1:8000/storage/' + apartment.cover_img"
                 alt=""
               />
             </div>
-            <div>{{ apartment.address }}</div>
-            <div>Distance: {{ calculateDistance(apartment) }} km</div>
-            <div class="d-flex justify-content-evenly">
-              <div v-for="service in apartment.services">
-                <font-awesome-icon :icon="service.icon" />
+            <div class="card-info ps-2">
+              <h4>{{ apartment.title }}</h4>
+              <h6>{{ apartment.address }}</h6>
+              <h6>Distance: {{ calculateDistance(apartment) }} km</h6>
+              <div class="d-flex justify-content-between px-2">
+                <div v-for="service in apartment.services">
+                  <font-awesome-icon :icon="service.icon" />
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </router-link>
+      </div>
+    </div>
+
+    <div class="row row-cols-3 my-5 g-3">
+      <div v-for="apartment in this.store.apartmentsToShow" class="col">
+        <router-link
+          class="nav-link"
+          :to="{ name: 'showdetails', params: { id: `${apartment.id}` } }"
+        >
+          <div class="card-searchpage">
+            <div class="apartment-img">
+              <img
+                :src="'http://127.0.0.1:8000/storage/' + apartment.cover_img"
+                alt=""
+              />
+            </div>
+            <div class="card-info ps-2">
+              <h4>{{ apartment.title }}</h4>
+              <h6>{{ apartment.address }}</h6>
+              <h6>Distance: {{ calculateDistance(apartment) }} km</h6>
+              <div class="d-flex justify-content-between px-2">
+                <div v-for="service in apartment.services">
+                  <font-awesome-icon :icon="service.icon" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </router-link>
       </div>
     </div>
   </div>
@@ -303,6 +326,47 @@ export default {
     object-fit: contain;
     height: 100%;
     width: 100%;
+  }
+}
+.card-searchpage {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  &:hover .card-info {
+    bottom: 0;
+  }
+  h4 {
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    color: white;
+  }
+  .card-info {
+    transition: 0.5s;
+    width: 100%;
+    backdrop-filter: blur(2px);
+    background-image: linear-gradient(
+      to bottom,
+      rgba(255, 0, 0, 0),
+      rgb(186, 182, 182, 1)
+    );
+    position: absolute;
+    bottom: -80px;
+    left: 0;
+    padding-left: 15px;
+  }
+  .apartment-img {
+    height: 300px;
+    width: 100%;
+    span {
+      top: 37px;
+      right: 0px;
+      background-color: green;
+    }
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+    }
   }
 }
 </style>
