@@ -8,14 +8,32 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 // / import font awesome icon component /
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 // / import specific icons /
-import { faUtensils } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUtensils,
+  faDoorOpen,
+  faToilet,
+  faBed,
+  faRulerCombined,
+  faMapLocationDot,
+  faCoins,
+  faMessage,
+} from "@fortawesome/free-solid-svg-icons";
 import { faWifi } from "@fortawesome/free-solid-svg-icons";
 import { faCar } from "@fortawesome/free-solid-svg-icons";
 import { faWaterLadder } from "@fortawesome/free-solid-svg-icons";
 import { faBath } from "@fortawesome/free-solid-svg-icons";
 import { faWater } from "@fortawesome/free-solid-svg-icons";
 // / add icons to the library /
-library.add(faUtensils);
+library.add(
+  faUtensils,
+  faDoorOpen,
+  faToilet,
+  faBed,
+  faRulerCombined,
+  faMapLocationDot,
+  faCoins,
+  faMessage
+);
 library.add(faWifi);
 library.add(faCar);
 library.add(faWaterLadder);
