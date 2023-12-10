@@ -96,8 +96,8 @@ export default {
     <div class="row mt-4" :class="this.notFound ? 'd-none' : ''">
       <!-- BUTTON GO BACK -->
       <div class="d-flex flex-row-reverse">
-        <router-link :to="{ name: 'home' }" class="btn btn-primary"
-          >GO BACK</router-link
+        <router-link :to="{ name: 'home' }" class="btn btn-outline-primary"
+          >Home</router-link
         >
       </div>
 
@@ -124,7 +124,7 @@ export default {
               aria-hidden="true"
               icon="fa-solid fa-door-open"
             />
-            <strong class="text-nowrap">Rooms : </strong>
+            <strong class="text-nowrap">Rooms: </strong>
             {{ this.apartment.rooms }}
           </span>
         </p>
@@ -135,7 +135,7 @@ export default {
               aria-hidden="true"
               icon="fa-solid fa-toilet"
             />
-            <strong class="text-nowrap">Bathrooms : </strong>
+            <strong class="text-nowrap">Bathrooms: </strong>
             {{ this.apartment.bathrooms }}
           </span>
         </p>
@@ -146,7 +146,7 @@ export default {
               aria-hidden="true"
               icon="fa-solid fa-bed"
             />
-            <strong class="text-nowrap">Beds : </strong>
+            <strong class="text-nowrap">Beds: </strong>
             {{ this.apartment.beds }}
           </span>
         </p>
@@ -157,7 +157,7 @@ export default {
               aria-hidden="true"
               icon="fa-solid fa-ruler-combined"
             />
-            <strong class="text-nowrap">Square meters : </strong>
+            <strong class="text-nowrap">Square meters: </strong>
             {{ this.apartment.square_meters }} m<sup>2</sup>
           </span>
         </p>
@@ -168,7 +168,7 @@ export default {
               aria-hidden="true"
               icon="fa-solid fa-map-location-dot"
             />
-            <strong class="text-nowrap">Address : </strong>
+            <strong class="text-nowrap">Address: </strong>
             {{ this.apartment.address }}
           </span>
         </p>
@@ -179,7 +179,7 @@ export default {
               aria-hidden="true"
               icon="fa-solid fa-coins"
             />
-            <strong class="text-nowrap">Price : </strong>
+            <strong class="text-nowrap">Price: </strong>
             {{ this.apartment.price + " €" }}
           </span>
         </p>

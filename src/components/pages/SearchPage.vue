@@ -185,10 +185,9 @@ export default {
 
 <template>
   <div class="container">
-    <h2 class="my-3">Results</h2>
-
     <!-- filters -->
-    <div class="row row-cols-6 my-5 g-3">
+    <h5 class="mt-4 fst-italic">Filters</h5>
+    <div class="row row-cols-6 g-3">
       <div class="col">
         <label for="rooms">Rooms (min)</label>
         <input
@@ -202,7 +201,7 @@ export default {
       </div>
 
       <div class="col">
-        <label for="beds">Bedrooms (min)</label>
+        <label for="beds">Beds (min)</label>
         <input
           type="number"
           min="1"
@@ -236,11 +235,13 @@ export default {
         />
       </div>
       <div class="col-12 d-flex">
-        <div class="col-2" v-for="(service, index) in this.services">
-          <label :for="index">{{ service.label }}</label>
+        <div class="col-2 form-check" v-for="(service, index) in this.services">
+          <label :for="index" class="form-check-label">{{
+            service.label
+          }}</label>
           <input
             type="checkbox"
-            class="form-check-control"
+            class="form-check-input"
             :id="index"
             v-model="activeServices"
             :value="service.label"
@@ -249,12 +250,13 @@ export default {
       </div>
 
       <div class="col mt-auto">
-        <div class="btn btn-primary" @click="filterApartments">Filter</div>
+        <div class="btn btn-primary mt-3" @click="filterApartments">Filter</div>
       </div>
     </div>
 
     <!-- apartments -->
-    <div class="row row-cols-3 my-5 g-3">
+    <h2 class="mt-5">Results</h2>
+    <div class="row row-cols-3 my-3 g-3">
       <div v-for="apartment in this.store.featuredApartmentsToShow" class="col">
         <router-link
           class="nav-link"
