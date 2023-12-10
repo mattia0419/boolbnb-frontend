@@ -17,6 +17,16 @@ export default {
     };
   },
   methods: {
+    confirm() {
+      if (this.messageSent) {
+        setTimeout(() => {
+          this.messageSent = false;
+          let Conferm = document.getElementById("conferm");
+          Conferm.classList.add("d-none");
+        }, "4000");
+      }
+      // console.log("ciao");
+    },
     coverView(cover) {
       if (cover) {
         return cover;
@@ -84,39 +94,94 @@ export default {
 <template>
   <div class="container">
     <div class="row mt-4" :class="this.notFound ? 'd-none' : ''">
+      <!-- BUTTON GO BACK -->
       <div class="d-flex flex-row-reverse">
         <router-link :to="{ name: 'home' }" class="btn btn-primary"
           >GO BACK</router-link
         >
       </div>
-      <div class="col-4">
-        <img :src="this.apartment.cover_img" alt="" class="img-fluid" />
+
+      <!-- CARD INFO HOUSE -->
+      <div class="col-12 my-2">
+        <p class="fs-1">
+          <strong>{{ this.apartment.title }}</strong>
+        </p>
       </div>
-      <div class="col-8">
-        <h3>{{ this.apartment.title }}</h3>
-        <p>
-          <strong>Rooms : </strong>
-          {{ this.apartment.rooms }}
+      <!-- IMG -->
+      <div class="col-12 col-lg-4">
+        <img
+          :src="coverView(this.apartment.cover_img)"
+          alt=""
+          class="w-100 img-fluid"
+        />
+      </div>
+
+      <div class="col-12 col-lg-7 ms-lg-5 mt-5 my-lg-auto">
+        <p class="fs-3">
+          <span class="icon-link">
+            <font-awesome-icon
+              class="bi"
+              aria-hidden="true"
+              icon="fa-solid fa-door-open"
+            />
+            <strong class="text-nowrap">Rooms : </strong>
+            {{ this.apartment.rooms }}
+          </span>
         </p>
-        <p>
-          <strong>Bathrooms : </strong>
-          {{ this.apartment.bathrooms }}
+        <p class="fs-3">
+          <span class="icon-link">
+            <font-awesome-icon
+              class="bi"
+              aria-hidden="true"
+              icon="fa-solid fa-toilet"
+            />
+            <strong class="text-nowrap">Bathrooms : </strong>
+            {{ this.apartment.bathrooms }}
+          </span>
         </p>
-        <p>
-          <strong>Beds : </strong>
-          {{ this.apartment.beds }}
+        <p class="fs-3">
+          <span class="icon-link">
+            <font-awesome-icon
+              class="bi"
+              aria-hidden="true"
+              icon="fa-solid fa-bed"
+            />
+            <strong class="text-nowrap">Beds : </strong>
+            {{ this.apartment.beds }}
+          </span>
         </p>
-        <p>
-          <strong>Square meters : </strong>
-          {{ this.apartment.square_meters }}
+        <p class="fs-3">
+          <span class="icon-link">
+            <font-awesome-icon
+              class="bi"
+              aria-hidden="true"
+              icon="fa-solid fa-ruler-combined"
+            />
+            <strong class="text-nowrap">Square meters : </strong>
+            {{ this.apartment.square_meters }} m<sup>2</sup>
+          </span>
         </p>
-        <p>
-          <strong>Address : </strong>
-          {{ this.apartment.address }}
+        <p class="fs-3">
+          <span class="icon-link">
+            <font-awesome-icon
+              class="bi"
+              aria-hidden="true"
+              icon="fa-solid fa-map-location-dot"
+            />
+            <strong class="text-nowrap">Address : </strong>
+            {{ this.apartment.address }}
+          </span>
         </p>
-        <p>
-          <strong>Price : </strong>
-          {{ this.apartment.price + "€" }}
+        <p class="fs-3">
+          <span class="icon-link">
+            <font-awesome-icon
+              class="bi"
+              aria-hidden="true"
+              icon="fa-solid fa-coins"
+            />
+            <strong class="text-nowrap">Price : </strong>
+            {{ this.apartment.price + " €" }}
+          </span>
         </p>
       </div>
 
@@ -129,8 +194,8 @@ export default {
         class="col-4"
       ></div> -->
 
-      <!-- SERVIZO -->
-      <div class="col-4 mt-5">
+      <!-- SERVICE -->
+      <div class="col-lg-4 mt-5">
         <div class="row row-cols-2">
           <div v-for="service in this.apartment.services">
             <div class="col services-container my-1 ps-3">
@@ -152,11 +217,20 @@ export default {
       </div>
       <!-- FORM MESSAGE  -->
 
-      <div class="row mt-5">
-        <div class="col-8">
-          <div class="card">
-            <div class="card-header">Form Message</div>
-            <div class="card-body">
+      <div class="row mx-auto mt-5">
+        <div class="col-lg-8 mb-4 mb-lg-0 me-lg-3">
+          <div class="form">
+            <div class="fs-4 mb-4">
+              <span class="icon-link">
+                <font-awesome-icon
+                  class="bi"
+                  aria-hidden="true"
+                  icon="fa-solid fa-message"
+                />
+                <strong> Send a Message </strong>
+              </span>
+            </div>
+            <div class="">
               <form @submit.prevent="submitForm">
                 <div class="mb-3">
                   <label for="exampleFormControlInput1" class="form-label"
@@ -189,8 +263,9 @@ export default {
                   </button>
                 </div>
                 <div
-                  class="alert alert-success alert-dismissible fade show"
-                  :class="this.messageSent ? '' : 'd-none'"
+                  id="conferm"
+                  class="alert alert-success alert-dismissible fade show puff-in-center"
+                  :class="this.messageSent ? confirm() : 'd-none'"
                   role="alert"
                 >
                   Message sent!
@@ -199,31 +274,64 @@ export default {
                     class="btn-close"
                     data-bs-dismiss="alert"
                     aria-label="Close"
+                    @click="prova"
                   ></button>
                 </div>
               </form>
             </div>
-            <div class="card-footer"></div>
           </div>
         </div>
         <!-- MAP -->
-        <div
-          id="map"
-          ref="mapRef"
-          style="width: 400px; height: 100%"
-          :class="this.notFound ? 'd-none' : ''"
-          class="col-4"
-        ></div>
+        <div class="prova col-lg-4">
+          <div
+            id="map"
+            ref="mapRef"
+            :class="this.notFound ? 'd-none' : ''"
+            class=""
+          ></div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-#map {
-  height: 500px;
-  border-radius: 12px;
+.puff-in-center {
+  animation: puff-in-center 4s cubic-bezier(0.47, 0, 0.745, 0.715) both;
 }
+
+@keyframes puff-in-center {
+  0% {
+    transform: scale(2);
+    filter: blur(4px);
+    opacity: 0;
+  }
+  10% {
+    transform: scale(1);
+    filter: blur(0px);
+    opacity: 1;
+  }
+  90% {
+    transform: scale(1);
+    filter: blur(0px);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    filter: blur(4px);
+    opacity: 0;
+  }
+}
+.prova {
+  width: 400px;
+  height: 100%;
+  #map {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+  }
+}
+
 img {
   border-radius: 12px;
 }
@@ -231,7 +339,7 @@ img {
   //   margin-top: 40px;
   //   div {
   border: black solid 1px;
-  border-radius: 15px;
+  border-radius: 12px;
   //     margin-bottom: 5px;
   padding: 5px;
   //     display: flex;
@@ -242,5 +350,37 @@ img {
   //       height: 100%;
   //     }
   //   }
+}
+.form {
+  overflow: hidden;
+  padding: 20px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #ffffff, #e6e6e6);
+  box-shadow: 10px 10px 18px #c7c7c7, -10px -10px 18px #ffffff;
+  .form-control {
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    padding: 1em;
+    background-color: #f4f4f4;
+    box-shadow: inset 2px 5px 10px rgba(0, 0, 0, 0.1);
+    transition: 300ms ease-in-out;
+    &:focus {
+      background-color: #f4f4f4;
+      transform: scale(1.01);
+      box-shadow: 13px 13px 100px #969696a0, -13px -13px 100px #ffffff96;
+    }
+  }
+}
+
+// Breakpoints
+@media only screen and (max-width: 600px) {
+  .fs-3 {
+    text-align: center;
+    font-size: 18px !important;
+  }
+  .prova {
+    width: 100%;
+  }
 }
 </style>
