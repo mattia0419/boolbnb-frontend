@@ -16,7 +16,7 @@ export default {
     <!-- <a href="http://127.0.0.1:8000/admin" class="btn btn-primary my-3"
       >Dashboard</a
     > -->
-    <h3 class="my-4">Featured Apartments</h3>
+    <h3 class="mt-4">Featured apartments</h3>
 
     <div class="row row-cols-lg-3 row-cols-1 row-cols-md-2 my-3 g-3">
       <div v-for="apartment in store.featuredApartments" class="col">
@@ -27,7 +27,7 @@ export default {
           <div class="card-searchpage">
             <div class="apartment-img">
               <span class="position-absolute px-2 py-1 badge rounded-pill">
-                Sponsorized
+                Sponsored
                 <span class="visually-hidden">unread messages</span>
               </span>
               <img
@@ -49,7 +49,7 @@ export default {
       </div>
     </div>
 
-    <h3 class="my-4">Other apartments</h3>
+    <h3 class="mt-4">Other apartments</h3>
     <div class="row row-cols-lg-3 row-cols-1 row-cols-md-2 my-3 g-3">
       <div v-for="apartment in store.apartments" class="col">
         <router-link
