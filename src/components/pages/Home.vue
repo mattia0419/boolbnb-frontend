@@ -17,6 +17,7 @@ export default {
       >Dashboard</a
     > -->
     <h3 class="my-4">Featured Apartments</h3>
+
     <div class="row row-cols-lg-3 row-cols-1 row-cols-md-2 my-3 g-3">
       <div v-for="apartment in store.featuredApartments" class="col">
         <router-link
@@ -47,6 +48,8 @@ export default {
         </router-link>
       </div>
     </div>
+
+    <h3 class="my-4">Other apartments</h3>
     <div class="row row-cols-lg-3 row-cols-1 row-cols-md-2 my-3 g-3">
       <div v-for="apartment in store.apartments" class="col">
         <router-link

@@ -259,7 +259,7 @@ export default {
                 </div>
                 <div class="col-auto">
                   <button type="submit" class="btn btn-primary mb-3">
-                    Confirm identity
+                    Send
                   </button>
                 </div>
                 <div
